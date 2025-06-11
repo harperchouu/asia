@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>世界新聞地圖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+    
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .popup-link {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .popup-link:hover {
+            text-decoration: underline;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map', {
+            center: [20, 0],
+            zoom: 2,
+            worldCopyJump: false,
+            maxBoundsViscosity: 1.0,
+            maxBounds: [[-90, -180], [90, 180]]
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19,
+            noWrap: true
+        }).addTo(map);
+
+        // 新聞地點與連結
+        const newsMarkers = [
+            {
+                name: "巴黎新聞",
+                lat: 48.8566,
+                lon: 2.3522,
+                url: "paris-news.html"
+            },
+            {
+                name: "中國青年夜騎風潮遭禁　河南各大學下令封校",
+                lat: 35.8617,
+                lon: 104.1954,
+                url: "article2.html"
+            },
+            {
+                name: "日本青年選舉參與度低　大學生組織望提升投票意願",
+                lat: 35.6895,
+                lon: 139.6917,
+                url: "article6.html"
+            },
+            {
+                name: "韓國教授涉性騷反告誹謗 首爾女大學生靜坐抗議",
+                lat: 37.5000,
+                lon: 126.9780,
+                url: "article0.html"
+            },
+            {
+                name: "同德女大生反對男女合校　學生抗議行動不斷升溫",
+                lat: 37.5665,
+                lon: 126.9780,
+                url: "article3.html"
+            },
+
+            {
+                name: "喬治亞新聞（第比利斯）",
+                lat: 41.7151,
+                lon: 44.8271,
+                url: "georgia-news.html"
+            },
+            {
+                name: "美國新聞（華盛頓）",
+                lat: 38.9072,
+                lon: -77.0369,
+                url: "usa-news.html"
+            },
+            {
+                name: "荷蘭新聞（阿姆斯特丹）",
+                lat: 52.3676,
+                lon: 4.9041,
+                url: "netherlands-news.html"
+            },
+            {
+                name: "學生塗鴉抗議遭退學　德里大學陷打壓言論爭議）",
+                lat: 28.6139,
+                lon: 77.2090,
+                url: "article1.html"
+            },
+            {
+                name: "馬大服儀指南多次惹議　學生呼籲校方修改穿衣規定",
+                lat: 3.1390,
+                lon: 101.6869,
+                url: "article4.html"
+            },
+            {
+                name: "伊朗女大生脫衣抗議　頭巾令再引衝突）",
+                lat: 35.6892,
+                lon: 51.3890,
+                url: "article5.html"
+            }
+        ];
+
+        // 加入標記與連結
+        newsMarkers.forEach(news => {
+            const marker = L.marker([news.lat, news.lon]).addTo(map);
+            marker.bindPopup(`<a class="popup-link" href="${news.url}" target="_blank">${news.name}</a>`);
+        });
+    </script>
+
+    
+</body>
+
+</html>
